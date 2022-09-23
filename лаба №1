@@ -1,0 +1,58 @@
+/Задание 1
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int A;
+    int B;
+    int C;
+    cin >> A;
+    cin >> B;
+    cin >> C;
+    if (A%C==0 && B%C==0)
+    {
+       cout << (A+B)/C; 
+    }
+    else if (A%C==0 && B%C!=0)
+    {
+        cout << A/C + B;
+    }
+    else 
+    {
+        cout << A-B-C;
+    }
+}
+
+
+/Задание 2
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    int N;
+    cin >> N;
+    switch(N)
+    {
+        case 1: cout << "One";
+            break;
+        case 2: cout << "Two";
+            break;
+        case 3: cout << "Three";
+            break;
+        case 4: cout << "Four";
+            break;
+        case 5: cout << "Five";
+            break;
+        case 6: cout << "Six";
+            break;
+        case 7: cout << "Seven";
+            break;
+        default: cout << "Такого дня недели нет";
+    }
+}
