@@ -4,21 +4,19 @@
 
 
 #include <iostream>
-
 using namespace std;
-
 int main()
 { 
 int sum = 0;
 int n;
+int shet = 0;
 int max = -1000000;
 for(int i=0;i<5;i++)
-{
-    cin >> n;
+{   cin >> n;
     if (n > max && n>= -7 && n<= 19)
     {
         max = n;
-        
+        shet++;
     }
 
     if (n>= -7 && n<= 19)
@@ -28,3 +26,5 @@ for(int i=0;i<5;i++)
 }
 cout << max << endl;
 cout << sum << endl;
+cout << shet << endl;
+}
