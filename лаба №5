@@ -22,4 +22,61 @@ int main()
 	cout << str;
 	system("pause");
 }
+// Задание 5.2
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
 
+int main()
+{
+	setlocale(LC_ALL, "rus");
+	bool firstBool, secondBool;
+	string str; 
+	string s[1005];
+	int N, size = 0;
+	char first, second;
+	cin >> N >> first >> second;
+	ifstream fin("input.txt"); 
+	ofstream fout("output.txt");
+	while (fin >> str) 
+	{
+		firstBool = false;
+		secondBool = false;
+		for (int i = 0; i < str.length(); i++)
+		{
+			if (str[i] == first)
+			{
+				firstBool = true;
+			}
+			if (str[i] == second)
+			{
+				secondBool = true;
+			}
+
+			
+
+		}
+		
+		if (firstBool && secondBool) 
+		{
+			for (int j = 0; j < size; j++) 
+			{
+				if (str = s[size])
+				{
+
+				}
+			}
+
+			size++;
+		}
+		
+	}
+	for (int i = 0; i < size; i++) {
+		fout << s[i] << endl;
+	}
+
+	
+	
+	system("pause");
+}
