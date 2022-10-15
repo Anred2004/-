@@ -62,12 +62,18 @@ int main()
 		{
 			for (int j = 0; j < size; j++) 
 			{
-				if (str = s[size])
+				if (str == s[j])
 				{
-
+					f = false;
+					break;
 				}
 			}
 
+			if (flag)
+			{
+				s[size] = str;
+				
+			}
 			size++;
 		}
 		
