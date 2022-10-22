@@ -30,20 +30,47 @@ using namespace std;
 
 int main()
 {
-	setlocale(LC_ALL, "rus");
-	bool firstBool, secondBool;
-	string str; 
+	setlocale(LC_ALL, "Russian");
+
+	bool firstBool, secondBool, flag;
+	string str;
 	string s[1005];
 	int N, size = 0;
 	char first, second;
 	cin >> N >> first >> second;
-	ifstream fin("input.txt"); 
+	ifstream fin("input.txt");
 	ofstream fout("output.txt");
-	while (fin >> str) 
+
+	while (fin >> str)
 	{
 		firstBool = false;
 		secondBool = false;
+
 		for (int i = 0; i < str.length(); i++)
+		{
+			str[i] = tolower(str[i]);
+			//str.replace(i, 1, 1, tolower(str[i]));
+		}
+		while (ispunct(str[0]))
+		{
+			str.erase(0, 1);
+			if (str.length() == 0)
+			{
+				break;
+			}
+		}
+		if (str.length() == 0)
+		{
+			continue;
+		}
+		while (ispunct(str[str.length() - 1])) // является ли знаком препинания какой - либо символ
+		{
+			str.erase(str.length() - 1); // удаление последнего символа из строки
+		}
+
+		//fout << str << endl;
+
+		for (int i = 0; i < str.length(); i++) //поиск заданных букв в слове
 		{
 			if (str[i] == first)
 			{
@@ -54,17 +81,19 @@ int main()
 				secondBool = true;
 			}
 
-			
+
 
 		}
-		
-		if (firstBool && secondBool) 
+		// проверка на уникальность
+		flag = true;
+
+		if (firstBool && secondBool)
 		{
-			for (int j = 0; j < size; j++) 
+			for (int j = 0; j < size; j++)
 			{
 				if (str == s[j])
 				{
-					f = false;
+					flag = false;
 					break;
 				}
 			}
@@ -72,17 +101,30 @@ int main()
 			if (flag)
 			{
 				s[size] = str;
-				
+				size++;
+
 			}
-			size++;
+			
 		}
 		
 	}
-	for (int i = 0; i < size; i++) {
-		fout << s[i] << endl;
+	// сортировка по длине
+	for (int i = 0; i < size - 1; i++)
+	{
+		for (int j = i + 1; j < size; j++)
+		{
+			if (s[i].length() > s[j].length())
+			{
+				swap(s[i], s[j]);
+			}
+		}
 	}
 
-	
-	
-	system("pause");
-}
+	for (int i = 0; i < N; i++) 
+	{
+		fout << s[i] << endl;
+	}
+		
+
+		system("pause");
+	}
