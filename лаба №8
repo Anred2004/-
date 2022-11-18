@@ -1,0 +1,8 @@
+#include <iostream>
+
+int main()
+{
+	long long a = 1000;
+	unsigned char* firstBite = (unsigned char*) &a;
+	std::cout << (long long)*firstBite << " " << (long long)*(firstBite + 1) << " " << (long long)*(firstBite + 2) << " " << (long long)*(firstBite + 3) << " " << (long long)*(firstBite + 4) << " " << (long long)*(firstBite + 5) << " " << (long long)*(firstBite + 6) << " " << (long long)*(firstBite + 7);
+}
