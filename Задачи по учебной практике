@@ -78,3 +78,129 @@ int main()
 	cout << endl;
 	system("pause");
 }
+
+
+
+
+///// мой вариант
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+void mass(string s, int mas[1000])
+{
+	for (int i = 0; i < s.length(); i++)
+	{
+		mas[i + 1] = s[i] - '0';
+
+	}
+	mas[0] = s.length();
+	for (int i = 1; i < mas[0] / 2 + 1; i++)
+	{
+		int k = mas[0] - i + 1;
+		swap(mas[i], mas[k]);
+	}
+}
+void summ(int m1[1000], int m2[1000], int sum[1000])
+{
+	if (m1[0] > m2[0])
+	{
+		sum[0] = m1[0];
+	}
+	else
+	{
+		sum[0] = m2[0];
+	}
+	int q = 0;
+	for (int i = 1; i <= sum[0]; i++)
+	{
+
+		sum[i] = m1[i] + m2[i] + q;
+		q = sum[i] / 10;
+		sum[i] = sum[i] % 10;
+
+
+	}
+	if (q != 0)
+	{
+		sum[0]++;
+		sum[sum[0]] = q;
+
+	}
+}
+int main()
+{
+	string str1;
+	string str2;
+	int mas1[1000];
+	int mas2[1000];
+	int sum[1000];
+	int mult[1000];
+	int m1[1000];
+	int m2[1000];
+	cin >> str1;
+	cin >> str2;
+	mass(str1, mas1);
+	for (int i = 0; i < mas1[0]; i++)
+	{
+		cout << mas1[i + 1] << " ";
+	}
+	cout << endl;
+	mass(str2, mas2);
+	for (int i = 0; i < mas2[0]; i++)
+	{
+		cout << mas2[i + 1] << " ";
+	}
+	cout << endl;
+	summ(mas1, mas2, sum);
+	for (int i = 1; i <= sum[0]; i++)
+	{
+		cout << sum[i] << " ";
+	}
+	cout << endl;
+	
+	while (str1.length() != str2.length())
+	{
+		if (str1.length() > str2.length())
+		{
+			str2 = "0" + str2;
+		}
+		if (str1.length() < str2.length())
+		{
+			str1 = "0" + str1;
+		}
+	}
+	for (int i = 0; i < str1.length(); i++)
+	{
+		mas1[i + 1] = str1[i] - '0';
+
+	}
+	mas1[0] = str1.length();
+	for (int i = 0; i < mas1[0]; i++)
+	{
+		cout << mas1[i + 1] << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < str2.length(); i++)
+	{
+		mas2[i + 1] = str2[i] - '0';
+
+	}
+	mas2[0] = str2.length();
+	for (int i = 0; i < mas2[0]; i++)
+	{
+		cout << mas2[i + 1] << " ";
+	}
+	cout << endl;
+	
+}
+
+
+
+
+
+
+
+
+
