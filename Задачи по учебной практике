@@ -42,6 +42,31 @@ void mass(string s, int mas[1000])
 
 		}
 	}
+	void ressum(int sum[1000])
+	{
+		for (int i = 1; i <= sum[0] / 2; i++)
+		{
+			std::swap(sum[i], sum[sum[0] - i + 1]);
+		}
+	}
+	void sumresult(int sum[1000], int m1[1000], int m2[1000])
+	{
+		summ(m1, m2, sum);
+		ressum(sum);
+		for (int i = 1; i <= sum[0]; i++)
+		{
+			cout << sum[i];
+		}
+		cout << endl;
+	}
+	void resmult(int mult[1000])
+	{
+		for (int i = 1; i <= mult[0] / 2; i++)
+		{
+			std::swap(mult[i], mult[mult[0] - i + 1]);
+		}
+	}
+
 	void multi(int m1[1000], int m2[1000], int mult[1000])
 	{
 		mult[0] = m1[0] + m2[0];
@@ -57,6 +82,22 @@ void mass(string s, int mas[1000])
 
             }
 		}
+
+	}
+	void multresult(int mult[1000], int m1[1000], int m2[1000])
+	{
+		multi(m1, m2, mult);
+		
+		if (mult[mult[0]] == 0)
+		{
+			mult[0]--;
+		}
+		resmult(mult);
+		for (int i = 1; i <= mult[0]; i++)
+		{
+			cout << mult[i];
+		}
+
 
 	}
 
@@ -75,13 +116,18 @@ int main()
 	mass(str1, mas1);
 	mass(str2, mas2);
 	summ(mas1, mas2, sum);
+	sumresult(sum, mas1, mas2);
+	multresult(mult, mas1, mas2);
+	
+	
 
-	for (int i = sum[0]; i >=1 ; i--)
+	/*for (int i = sum[0]; i >=1 ; i--)
 	{
 		fout << sum[i];
 	}
-	fout << endl;
-	multi(mas1, mas2, mult);
+	
+	fout << endl;*/
+	/*multi(mas1, mas2, mult);
 	if (mult[mult[0]] == 0)
 	{
 		mult[0]--;
@@ -90,6 +136,7 @@ int main()
 	{
 		fout << mult[i];
 	}
+	*/
 
 	system("pause");
 }
