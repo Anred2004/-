@@ -4,6 +4,11 @@
 #include <string>
 using namespace std;
 
+int max(int a, int b) {
+	if (a > b) return a;
+	return b;
+}
+
 void mass(string s, int mas[1000])
 {
 	for (int i = 0; i < s.length(); i++)
@@ -20,14 +25,7 @@ void mass(string s, int mas[1000])
 }
 	void summ(int m1[1000], int m2[1000], int sum[1000])
 	{ 
-		if (m1[0] > m2[0])
-		{
-			sum[0] = m1[0];
-		}
-		else
-		{
-			sum[0] = m1[0];
-		}
+		sum[0] = max(m1[0], m2[0]);
 		int q = 0;
 		for (int i = 1; i <= sum[0]; i++)
 		{
@@ -35,7 +33,6 @@ void mass(string s, int mas[1000])
 				sum[i] = m1[i] + m2[i] + q;
 				q = sum[i] / 10;
 				sum[i] = sum[i] % 10;
-
 			
 		}
 		if (q != 0)
@@ -45,155 +42,56 @@ void mass(string s, int mas[1000])
 
 		}
 	}
+	void multi(int m1[1000], int m2[1000], int mult[1000])
+	{
+		mult[0] = m1[0] + m2[0];
+		for (int i = 1; i <= m1[0]; i++)
+		{
+			int p = 0;
+			for (int j = 1; j <= m2[0]; j++)
+			{
+				mult[i + j - 1] += m1[i]*m2[j];
+				p = mult[i + j - 1] / 10;
+				mult[i + j - 1] = mult[i + j - 1] % 10;
+				mult[i + j] += p;
+
+            }
+		}
+
+	}
+
 int main()
 {
 	string str2;
 	string str1;
-	int mas1[1000];
-	int mas2[1000];
-	int sum[1000];
-	int m1[1000];
-	int m2[1000];
+	int mas1[1000] = {0};
+	int mas2[1000] = {0};
+	int sum[1000] = {0};
+	int mult[1000] = {0};
 	ifstream fin("input.txt");
 	ofstream fout("output.txt");
 	fin >> str1;
 	fin >> str2;
 	mass(str1, mas1);
-	for (int i = 0; i < mas1[0]; i++)
-	{
-		cout << mas1[i + 1] << " ";
-	}
-	cout << endl;
 	mass(str2, mas2);
-	for (int i = 0; i < mas2[0]; i++)
-	{
-		cout << mas2[i + 1] << " ";
-	}
-	cout << endl;
 	summ(mas1, mas2, sum);
-	for (int i = 1; i <= sum[0]; i++)
+
+	for (int i = sum[0]; i >=1 ; i--)
 	{
-		cout << sum[i] << " " ;
+		fout << sum[i];
 	}
-	cout << endl;
+	fout << endl;
+	multi(mas1, mas2, mult);
+	if (mult[mult[0]] == 0)
+	{
+		mult[0]--;
+	}
+	for (int i = mult[0]; i >= 1; i--)
+	{
+		fout << mult[i];
+	}
+
 	system("pause");
-}
-
-
-
-
-///// мой вариант
-#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
-
-void mass(string s, int mas[1000])
-{
-	for (int i = 0; i < s.length(); i++)
-	{
-		mas[i + 1] = s[i] - '0';
-
-	}
-	mas[0] = s.length();
-	for (int i = 1; i < mas[0] / 2 + 1; i++)
-	{
-		int k = mas[0] - i + 1;
-		swap(mas[i], mas[k]);
-	}
-}
-void summ(int m1[1000], int m2[1000], int sum[1000])
-{
-	if (m1[0] > m2[0])
-	{
-		sum[0] = m1[0];
-	}
-	else
-	{
-		sum[0] = m2[0];
-	}
-	int q = 0;
-	for (int i = 1; i <= sum[0]; i++)
-	{
-
-		sum[i] = m1[i] + m2[i] + q;
-		q = sum[i] / 10;
-		sum[i] = sum[i] % 10;
-
-
-	}
-	if (q != 0)
-	{
-		sum[0]++;
-		sum[sum[0]] = q;
-
-	}
-}
-int main()
-{
-	string str1;
-	string str2;
-	int mas1[1000];
-	int mas2[1000];
-	int sum[1000];
-	int mult[1000];
-	int m1[1000];
-	int m2[1000];
-	cin >> str1;
-	cin >> str2;
-	mass(str1, mas1);
-	for (int i = 0; i < mas1[0]; i++)
-	{
-		cout << mas1[i + 1] << " ";
-	}
-	cout << endl;
-	mass(str2, mas2);
-	for (int i = 0; i < mas2[0]; i++)
-	{
-		cout << mas2[i + 1] << " ";
-	}
-	cout << endl;
-	summ(mas1, mas2, sum);
-	for (int i = 1; i <= sum[0]; i++)
-	{
-		cout << sum[i] << " ";
-	}
-	cout << endl;
-	
-	while (str1.length() != str2.length())
-	{
-		if (str1.length() > str2.length())
-		{
-			str2 = "0" + str2;
-		}
-		if (str1.length() < str2.length())
-		{
-			str1 = "0" + str1;
-		}
-	}
-	for (int i = 0; i < str1.length(); i++)
-	{
-		mas1[i + 1] = str1[i] - '0';
-
-	}
-	mas1[0] = str1.length();
-	for (int i = 0; i < mas1[0]; i++)
-	{
-		cout << mas1[i + 1] << " ";
-	}
-	cout << endl;
-	for (int i = 0; i < str2.length(); i++)
-	{
-		mas2[i + 1] = str2[i] - '0';
-
-	}
-	mas2[0] = str2.length();
-	for (int i = 0; i < mas2[0]; i++)
-	{
-		cout << mas2[i + 1] << " ";
-	}
-	cout << endl;
-	
 }
 
 
