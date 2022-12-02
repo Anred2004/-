@@ -1,0 +1,38 @@
+#include <iostream>
+#define _USE_MATH_DEFINES
+#include <math.h>
+using namespace std;
+
+class circumference
+{
+private:
+	double m_radius = 0;
+	double m_circleLength = 0;
+public:
+	circumference(double radius)
+	{
+		if (radius <= 0) // проверяем значение радиуса
+		{
+			cout << "Error" << endl;
+		}
+		set(radius);
+	}
+	void set(double radius) // устанавливаем значение радиуса
+	{
+			m_radius = radius;
+	}
+	double circleLength() // находим длину окружности
+	{
+		m_circleLength = 2 * M_PI * m_radius;
+		return m_circleLength;
+	}
+
+
+
+};
+
+int main()
+{
+	circumference circumference1(-3);
+	cout << circumference1.circleLength();
+}
