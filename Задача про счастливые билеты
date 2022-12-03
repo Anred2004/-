@@ -1,0 +1,51 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+	int bilet1;
+	int bilet2;
+	int countlucky = 0;
+	int countfake = 0;
+	for (int i = 0; i <= 9; i++)
+	{
+		for (int j = 0; j <= 9; j++)
+		{
+			for (int k = 0; k <= 9; k++)
+			{
+				for (int m = 0; m <= 9; m++)
+				{
+					for (int l = 0; l <= 9; l++)
+					{
+						for (int h = 0; h <= 9; h++)
+						{
+							bilet1 = i + j + k;
+							bilet2 = m + l + h;
+							if (bilet1 /10 + bilet1 % 10 == bilet2 /10 + bilet2 % 10)
+							{
+								countfake += 1;
+								if (bilet1 == bilet2)
+								{
+									countlucky += 1;
+								}
+							}
+							
+						}
+					}
+				}
+			}
+		}
+	}
+	cout << countfake << endl;
+	cout << countlucky << endl;
+	float equality = ((float)countfake) / countlucky;
+	float lucky = ((float)countlucky) / 1000000;
+	float fake = ((float)countfake) / 1000000;
+	float probability = fake - lucky;
+	cout << equality << " " << probability;
+	system("pause");
+
+
+}
