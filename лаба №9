@@ -6,8 +6,8 @@ using namespace std;
 class circumference
 {
 private:
-	double m_radius = 0;
-	double m_circleLength = 0;
+	double m_radius;
+	double m_circleLength;
 public:
 	circumference(double radius)
 	{
@@ -17,10 +17,22 @@ public:
 		}
 		set(radius);
 	}
+
+	circumference()
+	{
+		m_radius = 0;
+	}
+
 	void set(double radius) // устанавливаем значение радиуса
 	{
-			m_radius = radius;
+		m_radius = radius;
 	}
+
+	int get() 
+	{
+		return m_radius;
+	}
+
 	double circleLength() // находим длину окружности
 	{
 		m_circleLength = 2 * M_PI * m_radius;
@@ -33,6 +45,9 @@ public:
 
 int main()
 {
-	circumference circumference1(-3);
-	cout << circumference1.circleLength();
+	circumference circumference1;
+	circumference1.set(5);
+	if (circumference1.get()>0)
+		cout << circumference1.circleLength();
+	system("pause");
 }
