@@ -141,6 +141,78 @@ int main()
 	system("pause");
 }
 
+//задача №3
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+
+	string str;
+	string letter;
+
+	
+	ifstream fin("input.txt");
+	ofstream fout("output.txt");
+
+	string alp = "abcdefghijklmnopqrstuvwxyz";
+	int mass[100] = { 0 };
+
+	while (fin >> str)
+	{
+		
+		int count[100];
+		
+		for (int i = 0; i < str.length(); i++)
+		{
+			str[i] = tolower(str[i]);
+		}
+		while (ispunct(str[0]))
+		{
+			str.erase(0, 1);
+			if (str.length() == 0)
+			{
+				break;
+			}
+		}
+		if (str.length() == 0)
+		{
+			continue;
+		}
+		while (ispunct(str[str.length() - 1]))
+		{
+			str.erase(str.length() - 1);
+		}
+
+		for (int i = 0; i < str.length(); i++)
+		{
+			mass[alp.find(str[i])]++;
+		}
+		/*for (int i = 0; i < alp.length(); i++)
+		{
+			cout << mass[i] << endl;
+		}*/
+		
+
+	}
+
+	for (int i = 0; i < alp.length() - 1; i++)
+		for (int j = i + 1; j < alp.length() - 1; j++)
+			if (mass[i] < mass[j])
+			{
+				swap(mass[i], mass[j]);
+				swap(alp[i], alp[j]);
+			}
+	for (int i = 0; i < alp.length(); i++)
+	{
+		cout << alp[i] << " ";
+		cout << mass[i] << endl;
+	}
+	system("pause");
+}
+			
 
 
 
