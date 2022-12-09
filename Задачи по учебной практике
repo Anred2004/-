@@ -141,7 +141,7 @@ int main()
 	system("pause");
 }
 
-//задача №3
+//задача 3
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -152,18 +152,14 @@ int main()
 
 	string str;
 	string letter;
-
-	
+	char b1, b2, b3, b4;
 	ifstream fin("input.txt");
 	ofstream fout("output.txt");
-
 	string alp = "abcdefghijklmnopqrstuvwxyz";
 	int mass[100] = { 0 };
 
 	while (fin >> str)
 	{
-		
-		int count[100];
 		
 		for (int i = 0; i < str.length(); i++)
 		{
@@ -194,7 +190,6 @@ int main()
 		{
 			cout << mass[i] << endl;
 		}*/
-		
 
 	}
 
@@ -207,9 +202,47 @@ int main()
 			}
 	for (int i = 0; i < alp.length(); i++)
 	{
-		cout << alp[i] << " ";
-		cout << mass[i] << endl;
+		//cout << alp[i] << " ";
+		//cout << mass[i] << endl;
 	}
+
+	b1 = alp[0];
+	b2 = alp[1];
+	b3 = alp[2];
+	b4 = alp[3];
+	cout << b1 << b2 << b3 << b4 << endl;;
+	ifstream fin2("input.txt");
+	while (fin2 >> str)
+	{
+		for (int i = 0; i < str.length(); i++)
+		{
+			str[i] = tolower(str[i]);
+		}
+
+
+		int count = 0;
+		string sc = " ( ";
+		for (int i = 0; i < str.length(); i++)
+		{
+			char f = tolower(str[i]);
+			char s = tolower(str[i+1]);
+			if (((f == b1) || (f == b2) || (f == b3) || (f == b4)) && ((s == b1) || (s == b2) || (s == b3) || (s == b4)))
+			{
+				str[i] = toupper(str[i]);
+				str[i + 1] = toupper(str[i + 1]);
+				cout << str[i] << endl;
+
+				sc+= f;
+				sc+= s;
+				sc += ", ";
+			}
+	
+		}
+		sc += ")";
+		str += sc;
+		fout << str << " ";
+	}
+
 	system("pause");
 }
 			
