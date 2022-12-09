@@ -147,6 +147,8 @@ int main()
 #include <string>
 using namespace std;
 
+int mass[100] = { 0 };
+
 int main()
 {
 
@@ -156,7 +158,7 @@ int main()
 	ifstream fin("input.txt");
 	ofstream fout("output.txt");
 	string alp = "abcdefghijklmnopqrstuvwxyz";
-	int mass[100] = { 0 };
+	
 
 	while (fin >> str)
 	{
@@ -214,23 +216,20 @@ int main()
 	ifstream fin2("input.txt");
 	while (fin2 >> str)
 	{
-		for (int i = 0; i < str.length(); i++)
-		{
-			str[i] = tolower(str[i]);
-		}
 
 
 		int count = 0;
-		string sc = " ( ";
+		string sc = " (";
+
 		for (int i = 0; i < str.length(); i++)
 		{
+			
 			char f = tolower(str[i]);
 			char s = tolower(str[i+1]);
 			if (((f == b1) || (f == b2) || (f == b3) || (f == b4)) && ((s == b1) || (s == b2) || (s == b3) || (s == b4)))
 			{
 				str[i] = toupper(str[i]);
 				str[i + 1] = toupper(str[i + 1]);
-				cout << str[i] << endl;
 
 				sc+= f;
 				sc+= s;
@@ -238,8 +237,20 @@ int main()
 			}
 	
 		}
-		sc += ")";
-		str += sc;
+		if (sc.length() > 2) 
+		{
+			str += sc;
+		}
+		if (str[str.length() - 1] == ' ')
+		{
+			str.erase(str.length() - 1);
+		}
+		if (str[str.length() - 1] == ',')
+		{
+			str.erase(str.length() - 1);
+			str += ")";
+		}
+		
 		fout << str << " ";
 	}
 
