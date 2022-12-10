@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Abonent
+{
+private:
+
+	string m_name;
+	int m_number;
+
+public:
+	Abonent(string name, string surname, int number)
+	{
+		m_name = name + " " + surname;
+		m_number = number;
+	}
+	string get()
+	{
+		return m_name;
+	}
+
+};
+
+
+class Provider
+{
+private:
+	string m_name;
+	int m_adress;
+	vector<Abonent*> m_abonents;
+
+
+public:
+
+	Provider(string name, int adress)
+	{
+		m_name = name;
+		m_adress = adress;
+	}
+	void AddAbonent(Abonent*& abonent)
+	{
+		m_abonents.push_back(abonent);
+	}
+
+	void PrintAbonent()
+	{
+		for (int i = 0; i < m_abonents.size(); i++)
+		{
+			cout << m_abonents[i]->get();
+		}
+	}
+};
+
+
+int main()
+{
+	Abonent* abonent1 = new Abonent("Petr", "Petrov", 8906234532);
+	Abonent* abonent2 = new Abonent("Kirill", "Kushat", 8906234789);
+	Abonent* abonent3 = new Abonent("Artem", "Kuprin", 8906234432);
+	Provider* provider1 = new Provider("Beelin", 456);
+	provider1->AddAbonent(abonent1);
+	provider1->AddAbonent(abonent2);
+	provider1->AddAbonent(abonent3);
+	provider1->PrintAbonent();
+	delete provider1;
+	system("pause");
+
+}
