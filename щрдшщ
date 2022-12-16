@@ -1,0 +1,87 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+int mass[100] = { 0 };
+int main()
+{
+	string str;
+	string letter;
+	char b1, b2, b3, b4;
+	ifstream fin("input.txt");
+	ofstream fout("output.txt");
+	string alp = "abcdefghijklmnopqrstuvwxyz";
+	while (fin >> str)
+	{
+		for (int i = 0; i < str.length(); i++)
+		{
+			str[i] = tolower(str[i]);
+		}
+		while (ispunct(str[0]))
+		{
+			str.erase(0, 1);
+			if (str.length() == 0)
+			{
+				break;
+			}
+		}
+		if (str.length() == 0)
+		{
+			continue;
+		}
+		while (ispunct(str[str.length() - 1]))
+		{
+			str.erase(str.length() - 1);
+		}
+		for (int i = 0; i < str.length(); i++)
+		{
+			mass[alp.find(str[i])]++;
+		}
+	}
+	for (int i = 0; i < alp.length() - 1; i++)
+		for (int j = i + 1; j < alp.length() - 1; j++)
+			if (mass[i] < mass[j])
+			{
+				swap(mass[i], mass[j]);
+				swap(alp[i], alp[j]);
+			}
+	b1 = alp[0];
+	b2 = alp[1];
+	b3 = alp[2];
+	b4 = alp[3];
+	cout << b1 << b2 << b3 << b4 << endl;;
+	ifstream fin2("input.txt");
+	while (fin2 >> str)
+	{
+		int count = 0;
+		string sc = " (";
+		for (int i = 0; i < str.length(); i++)
+		{
+			char f = tolower(str[i]);
+			char s = tolower(str[i + 1]);
+			if (((f == b1) || (f == b2) || (f == b3) || (f == b4)) && ((s == b1) || (s == b2) || (s == b3) || (s == b4)))
+			{
+				str[i] = toupper(str[i]);
+				str[i + 1] = toupper(str[i + 1]);
+				sc += f;
+				sc += s;
+				sc += ", ";
+			}
+		}
+		if (sc.length() > 2)
+		{
+			str += sc;
+		}
+		if (str[str.length() - 1] == ' ')
+		{
+			str.erase(str.length() - 1);
+		}
+		if (str[str.length() - 1] == ',')
+		{
+			str.erase(str.length() - 1);
+			str += ")";
+		}
+		fout << str << " ";
+	}
+	system("pause");
+}
