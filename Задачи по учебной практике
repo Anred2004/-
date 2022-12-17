@@ -256,6 +256,71 @@ int main()
 
 	system("pause");
 }
+
+//задача №6
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	vector<int> Vector;
+	vector<int>:: iterator F;
+	for (int i = 1; i <= 10; i++)
+	{
+		Vector.push_back(i); // добавляем элемент в конец вектора
+	}
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	cout << "amont elements in vector:" << " " << Vector.size() << endl; //размер вектора
+	cout << "amont elements in vector after operation capacity():" << " " << Vector.capacity() << endl; // размер доп. памяти
+	
+	Vector.reserve(50); // устанавливаем сколько элементов должно быть в доп. памяти
+	cout << "amont elements in capacity after operation reserve():" << " " << Vector.capacity() << endl; // размер доп. памяти после reserve()
+	
+	Vector.shrink_to_fit(); // удаляем доп. память
+	cout << "amont elements in capacity after operation shrink_to_fit():" << " " << Vector.capacity() << endl; //размер доп. памяти после shrink_to_fit()
+	
+	Vector.resize(5); // меняем размер вектора
+	Vector.resize(8, 50);
+	Vector.resize(10);
+	
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	/*cout << Vector[5] << endl;*/
+	Vector.insert(Vector.begin(), 100); // добавляем заданный элемент в начало вектора;
+	Vector.insert(Vector.end(), 200); // добавляем заданный элемент в конец вектора;
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	Vector.erase(Vector.begin());// удаляем первый элемент вектора;
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	Vector.emplace_back(1000); // добавляем элемент в конец вектора не перезаписывая его
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	Vector[0] = 1000;
+	for (int i = 0; i < Vector.size(); i++)
+	{
+		cout << Vector[i] << " ";
+	}
+	cout << endl;
+	Vector.clear();
+	cout << "amont elements in vector after operation clear() :" << " " << Vector.size() << endl; //размер вектора после операции clear()
+}
 			
 
 
