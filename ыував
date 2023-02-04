@@ -14,11 +14,13 @@ class Practical
 private:
 
 	vector<xy>Vector;
+	vector<int>Key;
 	int Fib[100];
+
 
 public:
 
-	void fibonachi(int m, int Fib[100])
+	void fibonachi(int m)
 	{
 		for (int i = 1; i < m; i++)
 		{
@@ -35,137 +37,11 @@ public:
 				Fib[i] = Fib[i - 1] + Fib[i - 2];
 			}
 		}
-	}
-	void encode()
-	{
-		ifstream fin("input.txt");
-		ofstream fout("output.txt");
-		std::string word;
-		int i = 2;
-		while (fin >> word)
-		{
-			xy s;
-			s.numb = Fib[i];
-			s.str = word;
-			Vector.push_back(s);
-			i++ ;
-		}
-
-		for (int i = 0; i < Vector.size(); i++) {
-			std::cout << Vector[i].numb << " " << Vector[i].str << std::endl;
-		}
-	}
-
-
-	void decode()
-	{
 
 	}
-		
-};
-
-
-
-void decode()
-{
-
-}
-
-void fibonachi(int m, int Fib[100])
-{
-	for (int i = 1; i < m; i++)
+	void read()
 	{
-		if (i == 0)
-		{
-			Fib[i] = 0;
-		}
-		else if ((i == 1) || (i == 2))
-		{
-			Fib[i] = 1;
-		}
-		else
-		{
-			Fib[i] = Fib[i - 1] + Fib[i - 2];
-		}
-	}
-}
-int main()
-{
-
-	string str;
-	ifstream fin("input.txt");
-	ofstream fout("output.txt");
-	int Fib[30] = { 0 };
-	int m = 0;
-	fibonachi(30, Fib);
-	for (int i = 0; i < 30; i++)
-	{
-		cout << Fib[i] << endl;
-	}
-
-
-	system("pause");
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-using namespace std;
-
-struct xy // структура, содержащая число и строку
-{
-	int numb;
-	string str;
-};
-class Practical
-{
-private:
-
-	vector<xy>Vector;
-	int Fib[100];
-
-public:
-
-	void fibonachi(int m, int Fib[100]) // функция, находящая числа фиббоначи
-	{
-		for (int i = 1; i < m; i++)
-		{
-			if (i == 0)
-			{
-				Fib[i] = 0;
-			}
-			else if ((i == 1) || (i == 2))
-			{
-				Fib[i] = 1;
-			}
-			else
-			{
-				Fib[i] = Fib[i - 1] + Fib[i - 2];
-			}
-		}
-		
-	}
-	void encode()
-	{
+		fibonachi(20);
 		ifstream fin("input.txt");
 		ofstream fout("output.txt");
 		string word;
@@ -175,42 +51,75 @@ public:
 			xy s;
 			s.numb = Fib[i];
 			s.str = word;
-			Vector.push_back(s); // добавляем элементы в вектор
+			Vector.push_back(s);
 			i++;
 		}
 
-		for (int i = 0; i < Vector.size(); i++) 
+		for (int i = 0; i < Vector.size(); i++)
 		{
-			std::cout << Vector[i].numb << " " << Vector[i].str << std::endl;
+			fout << Vector[i].numb << " " << Vector[i].str << endl;
 		}
 	}
 
-
 	void decode()
 	{
+		read();
+		int k = 0;
+		int sym = 0;
+		int size = 0;
+		cin >> size;
+		for (int i = 0; i < size; i++)
+		{
+			cin >> sym;
+			Key.push_back(sym);
+			//cout << Key[i] << endl;
+		}
+		for (int i = 0; i < Key.size(); i++)
+		{
+			for (int j = 0; j < Key.size(); j++)
+			{
+				if (Vector[i].numb == Key[j])
+				{
+					k++;
+				}
+			}
+		}
+		if (Vector.size() != Key.size())
+		{
+			cout << "Error1" << endl;
+		}
+		else if (k != Key.size())
+		{
+			cout << "Error2 "<< endl;
+		}
+		else
+		{
+			for (int i = 0; i < Vector.size(); i++)
+			{
+				for (int j = 0; j < Vector.size(); j++)
+				{
+					while (Vector[i].numb != Key[j])
+					{
+						swap(Vector[i].str, Vector[j].str);
+						
+					}
+					for (int i = 0; i < Vector.size(); i++)
+					{
+						cout << Vector[i].str << endl;
+					}
+					
+				}
+			}
+
+		}
 
 	}
-
 };
-
-
 int main()
-{ 
-	//Practical practical1;
-	//cout << practical1.encode();
-	/*string str;
-	ifstream fin("input.txt");
-	ofstream fout("output.txt");
-	int Fib[30] = { 0 };
-	int m = 0;
-	fibonachi(30, Fib);
-	for (int i = 0; i < 30; i++)
-	{
-		cout << Fib[i] << endl;
-	}
+{
+	Practical shifr;
+	shifr.decode();
+	system("pause");
 
-
-	system("pause");*/
-	
 }
 
