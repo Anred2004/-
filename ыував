@@ -15,6 +15,7 @@ private:
 
 	vector<xy>Vector;
 	vector<int>Key;
+	vector<int>Dekey;
 	int Fib[100];
 
 
@@ -61,10 +62,11 @@ public:
 		}
 	}
 
-	void decode()
+	void incode()
 	{
 		read();
 		int k = 0;
+		string encodeStr[100];
 		int sym = 0;
 		int size = 0;
 		cin >> size;
@@ -72,8 +74,10 @@ public:
 		{
 			cin >> sym;
 			Key.push_back(sym);
+			Dekey.push_back(sym);
 			//cout << Key[i] << endl;
 		}
+		
 		for (int i = 0; i < Key.size(); i++)
 		{
 			for (int j = 0; j < Key.size(); j++)
@@ -94,23 +98,45 @@ public:
 		}
 		else
 		{
-			for (int i = 0; i < Vector.size(); i++)
+			for (int j = 0; j < Vector.size(); j++)
 			{
-				for (int j = 0; j < Vector.size(); j++)
+				for (int i = 0; i < Vector.size(); i++)
 				{
-					while (Vector[i].numb != Key[j])
+					if (Vector[i].numb == Key[j])
 					{
-						swap(Vector[i].str, Vector[j].str);
-						
-					}
-					for (int i = 0; i < Vector.size(); i++)
-					{
-						cout << Vector[i].str << endl;
+						//swap(Vector[i].str, Vector[j].str);
+						encodeStr[j] = Vector[i].str;
+						//cout << i << " " << Vector[i].numb << " " << Key[j] << endl;
 					}
 					
 				}
 			}
+			/*for (int i = 0; i < Vector.size(); i++)
+			{
+				cout << encodeStr[i] << endl;
+			}*/
+		}
 
+	}
+	void decode()
+	{
+		
+		incode();
+		string decodeStr[100];
+		for (int i = 0; i < Vector.size()-1; i++)
+		{
+			for (int j = i+1; j < Vector.size(); j++)
+			{
+				if (Key[i] > Key[j])
+				{
+					swap(Key[i], Key[j]);
+					Dekey[j] = Key[i];
+				}
+			}
+		}
+		for (int i = 0; i < Vector.size(); i++)
+		{
+			cout << Dekey[i] << endl;
 		}
 
 	}
@@ -118,8 +144,8 @@ public:
 int main()
 {
 	Practical shifr;
+	//shifr.incode();
 	shifr.decode();
 	system("pause");
 
 }
-
