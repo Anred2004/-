@@ -1,0 +1,55 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <string>
+using namespace sf;
+using namespace std;
+int main()
+{
+    string text = "Hello, world!";
+    float duration = 13; //длительность анимации в секунду
+    int сountSimb = text.length(); //кол-во символов в строке
+    float timeSimb = duration / сountSimb;// время на отбражение одного символа
+    int showSimb = 0;//кол-во символов, которое нужно отобразить
+
+    RenderWindow window(VideoMode(800, 600), "Animated Text");
+    
+    Font font;
+    font.loadFromFile("arial.ttf");
+
+    Text message;
+    message.setFont(font);
+    message.setString("");
+    message.setCharacterSize(24);
+    message.setPosition(100.f, 100.f);
+
+    Clock clock;
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        float timeElapsed = clock.getElapsedTime().asSeconds();//прошедшее время
+
+        if ((timeElapsed > timeSimb) && (showSimb < сountSimb))
+        {
+            message.setString(text[0]);//выводим первый символ
+            for (int i = 1; i < showSimb; i++)
+            {
+                message.setString(message.getString() + text[i]);//добвляем символ
+            }
+            showSimb++;//увеличиваем кол-во отображаемых символов
+            clock.restart();
+        }
+
+        window.clear();
+        window.draw(message);
+        window.display();
+    }
+
+    return 0;
+}
