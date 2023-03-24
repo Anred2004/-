@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+struct String
+{
+private:
+	unsigned int m_size;
+	char* m_str;//динамический массив
+public:
+	// базовый конструктор
+	String()
+	{
+		m_str = 0;
+		m_size = 0;
+	}
+	//конструктор присваивания
+	String(char* str)
+	{
+		m_size = strlen(str);
+		m_str = new char[m_size+1];
+		copy(str, str + m_size+1, m_str);
+	}
+	//деструктор
+	~String()
+	{
+		delete[] m_str;//освобождаем память под строку
+	}
+	// метод length
+	int length() const
+	{
+		return m_size;
+	}
+
+	void print()
+	{
+		cout << m_str << endl;
+	}
+
+
+
+};
+int main()
+{
+	String S("hkh");
+	//s.print();
+}
