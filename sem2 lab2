@@ -8,7 +8,7 @@ private:
 	unsigned int m_size;
 	char* m_str;//динамический массив
 	friend std::ostream& operator <<(std::ostream& out, String& str);
-	friend std::istream& operator >> (std::istream& out, String& str);
+	friend std::istream& operator >>(std::istream& in, String& str);
 public:
 	// базовый конструктор
 	String()
@@ -32,23 +32,25 @@ public:
 			m_str[i] = c;
 		}
 	}
-
+	// оператор присваивания
 	String& operator=(String& a)
 	{
 		std::swap(m_str, a.m_str);
 		std::swap(m_size, a.m_size);
 		return *this;
 	}
+	//оператор +=
 	String& operator+=(const String& a)
 	{
-		char* newStr = new char[m_size + a.m_size+1];
+		char* newStr = new char[m_size + a.m_size + 1];
 		std::copy(m_str, m_str + m_size, newStr);
-		std::copy(a.m_str, a.m_str + a.m_size+1, newStr+m_size);
+		std::copy(a.m_str, a.m_str + a.m_size + 1, newStr + m_size);
 		delete[] m_str;
 		m_str = newStr;
 		m_size = strlen(m_str);
 		return *this;
 	}
+	// оператор +
 	String operator+(const String& b)
 	{
 		char* newStr = new char[m_size + b.m_size + 1];
@@ -60,16 +62,17 @@ public:
 		//str1 += b;
 		return newStr;
 	}
-
+	// оператор чтения и изменения элемента
 	char operator[](int a)
 	{
 		return m_str[a];
 	}
+	//операторы <, >, ==
 	bool operator >(String& b)
 	{
 		return std::strcmp(m_str, b.m_str) > 0;
 	}
-	bool operator <(String& b) 
+	bool operator <(String& b)
 	{
 		return std::strcmp(m_str, b.m_str) < 0;
 	}
@@ -87,12 +90,7 @@ public:
 	{
 		return m_size;
 	}
-
-	void print()
-	{
-		std::cout << m_str << std::endl;
-		std::cout << m_size << std::endl;
-	}
+	// метод find()
 	int find(char sym)
 	{
 		for (int i = 0; i < m_size; i++)
@@ -105,13 +103,28 @@ public:
 		}
 		return -1;
 	}
-
+	//метод c_str()
 	char* c_str()
 	{
 		return m_str;
 	}
+	// метод at()
+	char at(int number)
+	{
+		if (0 <= number <= (m_size - 1))
+		{
+			return m_str[number];
+		}
+		return -1;
 
+	}
+	void print()
+	{
+		std::cout << m_str<< std::endl;
+		//std::cout << m_size << std::endl;
+	}
 };
+
 std::ostream& operator <<(std::ostream& out, String& str)
 {
 	for (int i = 0; i < str.m_size; i++)
@@ -122,15 +135,33 @@ std::ostream& operator <<(std::ostream& out, String& str)
 	out << std::endl;
 	return out;
 }
+std::istream& operator >>(std::istream& in, String& str)
+{
+	for (int i = 0; i < str.m_size; i++)
+	{
+		in >> str.m_str[i];
+
+	}
+	//in >> std::endl;
+	return in;
+}
+
+
 int main()
 {
 	String S("Hello world!!!");
-	String s2(" vova");
+	String s2("vova");
+	String s4("sleep");
 	String s3 = S + s2;
-	std::cout << S[2];
 	s3.print();
-	std::cout <<S.find('w');
-	std::cout << S.length();
-	std::cout << S;
-	system("pause");
+	std::cout << S[2] << std::endl;
+	std::cout << (s4 += s2) << std::endl;
+	std::cout << (S < s3) << std::endl;
+	std::cout << (s4 > s3) << std::endl;
+	std::cout << (s4 == s3) << std::endl;
+	std::cout << S.find('w') << std::endl;
+	std::cout << S.length() << std::endl;
+	std::cout << S.at(1) << std::endl;
+	std::cout << S << std::endl;
+
 }
