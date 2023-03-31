@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+class Complex
+{
+private:
+	double a;
+	double b;
+	friend std::ostream& operator << (std::ostream& out, Complex& z);
+	friend std::istream& operator >> (std::istream& in, Complex& z);
+
+public:
+	Complex(double a, double b)
+	{
+		a = 0.0;
+		b = 0.0;
+	}
+
+	Complex(Complex& z)
+	{
+		
+		a = z.a;
+		b = z.b;
+	}
+
+	~Complex() {};
+
+	Complex& operator=(Complex z)
+	{
+		
+		swap(a, z.a);
+		swap(b, z.b);
+		return *this;
+	}
+
+	Complex& operator+=(Complex& z)
+	{
+		a += z.a;
+		b += z.b;
+		return *this;
+	}
+	
+};
+
+
+ostream& operator<<(std::ostream& out, Complex& z)
+{
+	out << z.a << " " << z.b << "i";
+	return out;
+}
+
+istream& operator>>(std::istream& in, Complex& z)
+{
+	in >> z.a >> z.b;
+	return in;
+
+}
+
+int main()
+{
+	Complex z1(1,1);
+	Complex z2(2, 3);
+	//z1 += z2;
+	cout << z1 << endl;
+}
