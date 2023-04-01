@@ -10,46 +10,51 @@ private:
 	friend std::istream& operator >> (std::istream& in, Complex& z);
 
 public:
-	Complex(double a, double b)
+	//базовый конструктор
+	Complex()
 	{
 		a = 0.0;
 		b = 0.0;
 	}
-
+	Complex(double c, double d)
+	{
+		a = c;
+		b = d;
+	}
+	//конструктор копирования
 	Complex(Complex& z)
 	{
-		
+
 		a = z.a;
 		b = z.b;
 	}
-
+	//диструктор
 	~Complex() {};
-
+	// оператор присваивания
 	Complex& operator=(Complex z)
 	{
-		
+
 		swap(a, z.a);
 		swap(b, z.b);
 		return *this;
 	}
-
+	// оператор +=
 	Complex& operator+=(Complex& z)
 	{
 		a += z.a;
 		b += z.b;
 		return *this;
 	}
-	
-};
 
+};
 
 ostream& operator<<(std::ostream& out, Complex& z)
 {
-	out << z.a << " " << z.b << "i";
+	out << z.a << "+" << z.b << "i";
 	return out;
 }
 
-istream& operator>>(std::istream& in, Complex& z)
+istream& operator >> (std::istream& in, Complex& z)
 {
 	in >> z.a >> z.b;
 	return in;
@@ -58,8 +63,8 @@ istream& operator>>(std::istream& in, Complex& z)
 
 int main()
 {
-	Complex z1(1,1);
+	Complex z1(1, 1);
 	Complex z2(2, 3);
-	//z1 += z2;
-	cout << z1 << endl;
+	cout << (z1+=z2);
+	system("pause");
 }
