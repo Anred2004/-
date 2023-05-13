@@ -2,7 +2,7 @@
 using namespace std;
 
 template< typename I, int P, int Q>
-struct Maxrix2 
+struct Maxrix2
 {
 	I matrix[P][Q];
 };
@@ -29,15 +29,17 @@ public:
 			}
 		}
 	}
-	Matrix(int n, int m) 
+	Matrix(int y, int m)
 	{
-		m_n = n;
+		
+		m_n = y;
 		m_m = m;
 		for (int i = 0; i < m_n; i++) {
 			for (int j = 0; j < m_m; j++) {
 				matrix[i][j] = 0;
 			}
 		}
+		cout << y << " " << m_n << "<><><><><>" << endl;
 	}
 	// копирование
 	Matrix(const Matrix& other)
@@ -57,18 +59,19 @@ public:
 		}
 		else
 		{
-			cout << "Error";
+			cout << "Error Copy";
 		}
 
 	}
 	~Matrix() = default;
+	// оператор пpисваивания
 	Matrix& operator=(Matrix& other)
 	{
 		m_n = N;
 		m_m = M;
 		if (m_n != other.m_n || m_m != other.m_m)
 		{
-			cout << "Error";
+			cout << "Error =";
 		}
 		else
 		{
@@ -89,7 +92,7 @@ public:
 		m_m = M;
 		if (m_n != other.m_n || m_m != other.m_m)
 		{
-			cout << "Error";
+			cout << "Error +=";
 		}
 		else
 		{
@@ -136,9 +139,19 @@ public:
 	Matrix& operator *= (const Matrix<I, P, Q>& other)
 	{
 		Matrix sum(N, Q);
+		cout << sum.m_n << " " << sum.m_m << " ------"<< endl;
+		cout << N << " " << Q << " ------" << endl;
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < Q; j++)
+			{
+				sum.matrix[i][j] = 0;
+			}
+		}
+		//cout << M << " " << P << endl;
 		if (M != P)
 		{
-			cout << "Error";
+			cout << "Error *="<<endl;
 		}
 		else
 		{
@@ -149,11 +162,31 @@ public:
 					for (int k = 0; k < M; k++)
 					{
 						sum.matrix[i][j] += matrix[i][k] * other.getter(k, j);
+						cout << sum.matrix[i][j] <<" = " << matrix[i][k] <<" * "<< other.getter(k, j) << endl;
+						cout<< i << " " << j << " <- i j" << endl;
+						cout << i << " " << k << " <- i k" << endl;
+						cout << k << " " << j << " <- k j" << endl;
+						cout << endl << endl << endl;
 					}
 				}
 			}
+			
+			//cout << N << " " << Q << " NQ" << endl;
+			m_n = N;
+			m_m = Q;
+			for (int i = 0; i < N; i++)
+			{
+				for (int j = 0; j < Q; j++)
+				{
+
+					matrix[i][j] = sum.matrix[i][j];
+					cout << matrix[i][j] << " ";
+				}
+				cout << endl;
+			}
+			//*this = sum;
 		}
-		*this = sum;
+		
 		return *this;
 	}
 
@@ -167,9 +200,10 @@ public:
 	Matrix operator * (Matrix<I, P, Q> other)
 	{
 		Matrix result(N, Q);
+		
 		if (M != P)
 		{
-			cout << "Error";
+			cout << "Error *";
 			return *this;
 
 		}
@@ -194,7 +228,7 @@ public:
 		m_n = N;
 		m_m = M;
 		double result = 0;
-		if (m_n == 1 && m_m == 1) 
+		if (m_n == 1 && m_m == 1)
 		{
 			return matrix[0][0];
 		}
@@ -202,7 +236,7 @@ public:
 		{
 			result = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 		}
-		
+
 		return result;
 	}
 	// оператор получения и изменения элемента матрицы по индексу
@@ -224,6 +258,7 @@ public:
 
 	friend ostream& operator << (ostream& out, const Matrix& MX)
 	{
+		cout << MX.m_n << " " << MX.m_m << " mn mm" << endl;
 		for (int i = 0; i < MX.m_n; i++)
 		{
 			for (int j = 0; j < MX.m_m; j++)
@@ -240,11 +275,15 @@ public:
 
 int main()
 {
-	Matrix<int, 2, 2> M;
-	Matrix<int, 2, 2> C;
-	Matrix<int, 2, 2> K;
+	Matrix<int, 2, 1> M;
+	Matrix<int, 1, 3> C;
+	//Matrix<int, 2, 2> K;
 	cin >> M;
-	cout << M.determinant();
+	cin >> C;
+	//cout << M;
+	//cout << C;
+	M *= C;
+	//cout << M;
 	system("pause");
 
 }
