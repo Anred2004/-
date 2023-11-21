@@ -1,0 +1,40 @@
+// сортировка расческой
+#include <iostream>
+#include <vector>
+
+void combSort(std::vector<int>& mass)
+{
+    int step = mass.size() - 1; //шаг
+    while (step >= 1)
+    {
+        for (int i = 0; i + step < mass.size(); i++)
+        {
+            if (mass[i] > mass[i + step])
+            {
+                std::swap(mass[i], mass[i + step]);
+            }
+        }
+        step = (int)((step / 1.3f));//делим шаг на фактор уменьшения
+    }
+}
+
+int main()
+{
+    int n;
+    std::vector<int> mass;
+    std::cout << "Enter len mas: ";
+    std::cin >> n;
+    std::cout << std::endl << "enter mas: ";
+    for (int i = 0; i < n; i++) //заполняем массив
+    {
+        int temp;
+        std::cin >> temp;
+        mass.push_back(temp);
+    }
+    combSort(mass);
+    std::cout << "sorted: ";
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << mass[i] << " ";
+    }
+}
