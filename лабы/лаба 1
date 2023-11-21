@@ -1,1 +1,42 @@
+include <iostream>
+#include "vector"
 
+
+int main() 
+{
+    setlocale(LC_ALL, "Russian");
+    std::vector<char> stack;
+    std::string str = "(()}";
+
+    bool flag = 1;
+    char a;//хранит текущий символ строки
+
+    for (int i = 0; i < str.size(); i++) 
+    {
+        a = str[i];
+        if (a == '{' || a == '(' || a == '[') 
+        {
+            stack.push_back(a);
+        }
+        else if ((a == '}' || a == ')' || a == ']') && stack.empty()) {
+            flag = false;
+            break;
+        }
+        else if ((a == '}' && stack.back() == '{') || (a == ')' && stack.back() == '(') || (a == ']' && stack.back() == '[')) 
+        {
+            stack.pop_back();//удаляем последний элемент
+        }
+        else 
+        {
+            flag = 0;
+            break;
+        }
+    }
+
+    if (stack.empty() && flag == 1)
+        std::cout << "Строка существует." << std::endl;
+    else
+        std::cout << "Строка не существует." << std::endl;
+
+    return 0;
+}
