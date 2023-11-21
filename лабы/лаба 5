@@ -1,0 +1,41 @@
+// сортировка вставками
+#include <iostream>
+#include <vector>
+
+void insertionSort(std::vector<int>& mass)
+{
+    for (int j = 1; j < mass.size(); j++)
+    {
+        int temp = mass[j];
+        int i = j - 1;//последний элемент в отсортированной последовательности
+        while (i >= 0 && mass[i] > temp)
+        {
+            mass[i + 1] = mass[i];//сдвигаем вправо
+            i = i - 1;
+        }
+        mass[i + 1] = temp;
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    int n;
+    std::vector<int> mass;
+    std::cout << "Введите длину массива: ";
+    std::cin >> n;
+    std::cout << std::endl << "Введите массив: ";
+    for (int i = 0; i < n; i++)//заполняем массив
+    {
+        int temp;
+        std::cin >> temp;
+        mass.push_back(temp);
+    }
+    insertionSort(mass);
+    std::cout << std::endl;
+    std::cout << "Отсортированный массив: ";
+    for (int i = 0; i < n; i++)
+    {
+        std::cout << mass[i] << " ";
+    }
+}
