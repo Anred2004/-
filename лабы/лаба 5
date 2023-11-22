@@ -10,7 +10,7 @@ void insertionSort(std::vector<int>& mass)
         int i = j - 1;//последний элемент в отсортированной последовательности
         while (i >= 0 && mass[i] > temp)
         {
-            mass[i + 1] = mass[i];//сдвигаем вправо
+            mass[i + 1] = mass[i];//сдвигаем 
             i = i - 1;
         }
         mass[i + 1] = temp;
