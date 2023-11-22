@@ -42,4 +42,5 @@ int main()
 
     }
     std::cout << "amount of numbers: " << count << std::endl;
+    std::system("pause");
 }
