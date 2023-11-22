@@ -37,4 +37,5 @@ int main()
     {
         std::cout << mass[i] << " ";
     }
+    std::system("pause");
 }
