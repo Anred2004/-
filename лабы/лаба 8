@@ -1,71 +1,98 @@
-﻿// поразрядная сортировка
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<string>
-#include<math.h>
-#include<queue>
+// Метод сортировки: поразрядная
 
-void Outp(std::vector<int>& v)
+#include <iostream>
+#include <vector>
+#include <string> 
+#include <cmath> 
+
+
+void PrintVec(std::vector <int> vec)
 {
-    for (int i = 0; i < v.size(); i++)
-    {
-        std::cout << v[i] << " ";
-    }
-    std::cout << std::endl;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		std::cout << vec[i] << "  ";
+	}
+	std::cout << std::endl;
 }
 
-void Sort(std::vector<int>& v)
+
+int DigitNumber(int dig, int num)
 {
-    int max_el = *max_element(v.begin(), v.end());
-    std::string str_max = std::to_string(max_el);
-    int max = str_max.length();
+	for (int y = 0; y < num - 1; y++)
+	{
+		dig = dig / 10;
+	}
+	return dig % 10;
+}
 
-    int base = 10;
-    std::vector<std::vector<int>> bins(base, std::vector<int>());
-    std::queue<int> q;
-
-    for (int i = 0; i < max; i++)
-    {
-        for (int j = 0; j < v.size(); j++)
-        {
-            int digit = (v[j] / static_cast<int>(pow(base, i))) % base; //??????????????
-            bins[digit].push_back(v[j]);
-        }
-
-        v.clear();
-
-        for (const auto& q : bins)
-        {
-            v.insert(v.end(), q.begin(), q.end());
-        }
-
-        std::cout << "Iteration " << i + 1 << ": " << std::endl;
-        Outp(v);
-        
-        bins.assign(base, std::vector<int>());
-    }
+bool SameLenght(int a, int b)
+{
+	bool flag = false;
+	int a_counter{ 1 };
+	int b_counter{ 1 };
+	while (a > 0)
+	{
+		a = a / 10; ++a_counter;
+	}
+	while (b > 0)
+	{
+		b = b / 10; ++b_counter;
+	}
+	if (a_counter == b_counter) { return true; }
+	return false;
 }
 
 int main()
 {
-    int size = 0;
+	//pokets
+	std::vector <std::vector <int>> sup_mas{};
+	for (int x = 0; x < 10; x++) { std::vector <int> temp{}; sup_mas.push_back(temp); }
+	//entering massive + max
+	int mas_size = 0;
+	std::vector <int> mas{};
+	std::cout << "Enter your massive size: " << std::endl;
+	std::cin >> mas_size;
+	std::cout << "Enter your massive elements: " << std::endl;
+	int tempy(0);
+	int max(0);
+	for (int x = 0; x < mas_size; x++)
+	{
+		std::cin >> tempy;
+		if (tempy >= max) { max = tempy; }
+		mas.push_back(tempy);
+	}
+	PrintVec(mas);
+	std::cout << std::endl;
 
-    std::vector<int> v;
+	int max_size(0);
+	while (max != 0) { max = max / 10; max_size++; }
 
-    std::cout << "Input size:" << std::endl;
-    std::cin >> size;
-    std::cout << "Input elements:" << std::endl;
+	std::cout << "MAX SIZE: " << max_size << std::endl;
 
-    for (int i = 0; i < size; i++)
-    {
-        int el = 0;
-        std::cin >> el;
-        v.push_back(el);
-    }
+	int raz_count = 1;
+	for (int x = 0; x < max_size; x++)
+	{
+		for (int y = 0; y < mas_size; y++)
+		{
+			int tempr = DigitNumber(mas[y], raz_count);
+			sup_mas[tempr].push_back(mas[y]);
+		}
+		for (int c = 0; c < mas_size; c++) { mas[c] = -12; }
+		int mas_counter = 0;
+		for (int s = 0; s < 10; s++)
+		{
+			int counter = 0;
+			while (counter != sup_mas[s].size())
+			{
+				mas[mas_counter] = sup_mas[s][counter];
+				counter += 1; mas_counter += 1;
+			}
+			sup_mas[s].clear();
+		}
 
-    Sort(v);
+		raz_count++;
+	}
 
-    std::cout << "[Sorted]: " << std::endl;
-    Outp(v);
+	std::cout << "Sorted massive: " << std::endl;
+	PrintVec(mas);
 }
