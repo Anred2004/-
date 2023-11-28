@@ -1,24 +1,23 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 
-template <typename T>
 //усовершенствованная сортировка вставками
-void shellSort(std::vector<T>& mas)
+void shellSort(std::vector<int>& mass)
 {
-    int k = mas.size() - 1;
-  
+    int k = mass.size() - 1;
+
     for (k; k > 0; k = (int)(k / 2))
     {
-        for (int j = 1; j < mas.size(); j+=k)
+        for (int j = 1; j < mass.size(); j += k)
         {
-            T temp = mas[j];
+            int temp = mass[j];
             int i = j - 1;
-            while (i >= 0 && mas[i] > temp)
+            while (i >= 0 && mass[i] > temp)
             {
-                mas[i + 1] = mas[i];
+                mass[i + 1] = mass[i];
                 i = i - 1;
             }
-            mas[i + 1] = temp;
+            mass[i + 1] = temp;
         }
 
     }
@@ -26,20 +25,23 @@ void shellSort(std::vector<T>& mas)
 
 int main()
 {
+    setlocale(LC_ALL, "Russian");
     int n;
-    std::vector<int> mas;
-    std::cout << "Enter len mas: ";
+    std::vector<int> mass;
+    std::cout << "Введите длину массива: ";
     std::cin >> n;
-    std::cout << std::endl << "cur mas: ";
+    std::cout << std::endl << "Введите массив: ";
     for (int i = 0; i < n; i++)
     {
-        mas.push_back(rand() % 100);
-        std::cout << mas[i] << " ";
+        int temp;
+        std::cin >> temp;
+        mass.push_back(temp);
     }
-    shellSort(mas);
+    shellSort(mass);
     std::cout << '\n' << "sorted: ";
     for (int i = 0; i < n; i++)
     {
-        std::cout << mas[i] << " ";
+        std::cout << mass[i] << " ";
     }
+
 }
