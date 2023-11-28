@@ -1,0 +1,68 @@
+// быстрая
+#include <iostream>
+using namespace std;
+
+int partition(int list[], int start, int pivot) //разделение массива на 2 части относительно опорного элемента (pivot)
+{
+	int i = start;
+	while (i < pivot)
+	{
+		
+		if (list[i] > list[pivot] && i == pivot - 1) //Условие, проверяющее, если элемент list[i] больше опорного элемента list[pivot] и i равно pivot - 1. 
+			                                        //Это означает, что list[i] является последним элементом перед опорным элементом.
+		{
+			swap(list[i], list[pivot]); // меняем местами,чтобы положить list[i] на свое правильное место.
+			
+			pivot--; //уменьшаем на 1,так как опорный элемент был перемещен на свое место.
+		}
+
+		else if (list[i] > list[pivot])  // проверка если элемент list[i] больше опорного элемента list[pivot].
+		{
+			swap(list[pivot - 1], list[pivot]); // Меняем list[pivot - 1] и list[pivot], чтобы положить опорный элемент перед list[pivot].
+		
+			swap(list[i], list[pivot]); //Обмен значениями между list[i] и list[pivot], чтобы положить list[i] на свое правильное место.
+		
+		}
+
+		else i++; // i +1 , если элемент list[i] не больше опорного элемента.
+
+		cout << "\n\n Output in progress \n";
+		for (int i = 0; i < 6; i++)
+		{
+			cout << list[i] << "\t";
+		}
+	}
+	return pivot;
+
+}
+
+void quickSort(int list[], int start, int end)
+{
+		if (start < end) //Условие, проверяющее, если start меньше end. Если это условие выполняется, массив нуждается в сортировке.
+		{
+			int pivot = partition(list, start, end); //Вызов функции partition для разделения массива на две части и получение индекса опорного элемента.
+			quickSort(list, start, pivot - 1); // Рекурсивный вызов quickSort для сортировки левой части массива (элементы меньше опорного элемента).
+			quickSort(list, pivot + 1, end); // Рекурсивный вызов quickSort для сортировки правой части массива (элементы больше опорного элемента).
+		}
+}
+
+int main()
+{
+	int list[6] = { 48, 12, 5, 2, 0, 4 };
+
+	cout << "Input\n";
+	for (int i = 0; i < 6; i++)
+	{
+		cout << list[i] << "\t";
+	}
+
+	quickSort(list, 0, 5);
+
+	cout << "\n\n Output \n";
+	for (int i = 0; i < 6; i++)
+	{
+		cout << list[i] << "\t";
+	}
+
+	return 0;
+}
