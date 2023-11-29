@@ -1,0 +1,107 @@
+#include <iostream>
+#include "vector"
+#include <algorithm>
+
+std::vector<char> WritePolis(std::string &str){
+    std::vector<char> stack; //стек для операций
+    std::vector<char> Polish_notation; //запись выражения в польской нотации (обозначим как ВС)
+
+    for (char a:str){
+        if(a == '=') {
+            break;
+        }else if (a == '/' || a == '*') {
+            if(!stack.empty())
+                while(stack.back() == '*' || stack.back() == '/'){ //если в стеке лежит операции по приаритету равной наше, то отправляем ее в ВС
+                    Polish_notation.push_back(stack.back());
+                    stack.pop_back();
+                }
+            stack.push_back(a);
+        }else if (a == '+' || a == '-') {
+            if(!stack.empty())
+                while( stack.back() == '*' || stack.back() == '/' || stack.back() == '+' || stack.back() == '-'){ //если в стеке лежит операции по приаритету больше или равной наше, то отправляем ее в ВС
+                    Polish_notation.push_back(stack.back());
+                    stack.pop_back();
+                }
+            stack.push_back(a);
+        }else if (a == '(' ) {
+            stack.push_back(a);
+        }else if(a == ')') { //когда встречаем ), все из стека переносим в ВС пока не найдем (
+            while (stack.back() != '('){
+                Polish_notation.push_back(stack.back());
+                stack.pop_back();
+            }
+            stack.pop_back();
+        } else {
+            Polish_notation.push_back(a);
+        }
+    }
+
+    while(!stack.empty()){
+        Polish_notation.push_back(stack.back());
+        stack.pop_back();
+    }
+
+    std::cout << "Запись в польской нотации: ";
+    for(int i =0; i<Polish_notation.size(); i++){ std::cout << Polish_notation[i]; }
+    std::cout << std::endl;
+
+    return Polish_notation;
+}
+
+double Div(double a, double b){
+    double c;
+    if (b!=0) {
+        c= a / b;
+
+    } else throw "Division by zero!";
+    return c;
+}
+
+double Calc(std::vector<char> &Polish_notation){
+    std::vector<double> stack_of_numbers; //стек для чисел
+    char ch;
+    double a,b;
+
+    for(int i =0; i< Polish_notation.size(); i++){
+        ch = Polish_notation[i];
+        if(ch == '/' || ch == '*' || ch == '+' || ch == '-'){
+            a = stack_of_numbers.back(); stack_of_numbers.pop_back();
+            b = stack_of_numbers.back(); stack_of_numbers.pop_back();
+            if (ch == '/'){
+                try {
+                    stack_of_numbers.push_back(Div(b, a));
+                }
+                catch (const char* error_message) {
+                    std::cout << error_message << std::endl;
+                    break;
+                }
+            } else if ( ch == '*'){
+                stack_of_numbers.push_back(a*b);
+            } else if ( ch == '+'){
+                stack_of_numbers.push_back(a+b);
+            } else if ( ch == '-'){
+                stack_of_numbers.push_back(b-a);
+            }
+        } else {
+            stack_of_numbers.push_back(ch - '0');
+        }
+    }
+
+    return stack_of_numbers.back();
+}
+
+int main() {
+    system("chcp 65001");
+    //setlocale(LC_ALL, "Russian");
+    //std::cout << "Введите строку:" << std::endl;
+    //std::cin >> str;
+
+    //std::string str = "6+3*5-8/2*3=";
+    std::string str = "7+(5-2)*4=";
+
+    std::vector<char> Polish_notation = WritePolis(str); //запись выражения в польской нотации (обозначим как ВС)
+
+    std::cout << Calc(Polish_notation);
+
+    return 0;
+}
