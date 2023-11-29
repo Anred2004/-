@@ -44,15 +44,13 @@ bool SameLenght(int a, int b)
 
 int main()
 {
-	//pokets
 	std::vector <std::vector <int>> sup_mas{};
 	for (int x = 0; x < 10; x++) { std::vector <int> temp{}; sup_mas.push_back(temp); }
-	//entering massive + max
 	int mas_size = 0;
 	std::vector <int> mas{};
-	std::cout << "Enter your massive size: " << std::endl;
+	std::cout << "massive size: " << std::endl;
 	std::cin >> mas_size;
-	std::cout << "Enter your massive elements: " << std::endl;
+	std::cout << "massive elements: " << std::endl;
 	int tempy(0);
 	int max(0);
 	for (int x = 0; x < mas_size; x++)
@@ -67,7 +65,7 @@ int main()
 	int max_size(0);
 	while (max != 0) { max = max / 10; max_size++; }
 
-	std::cout << "MAX SIZE: " << max_size << std::endl;
+	//std::cout << "MAX SIZE: " << max_size << std::endl;
 
 	int raz_count = 1;
 	for (int x = 0; x < max_size; x++)
@@ -93,6 +91,7 @@ int main()
 		raz_count++;
 	}
 
-	std::cout << "Sorted massive: " << std::endl;
+	std::cout << "sorted massive: " << std::endl;
 	PrintVec(mas);
+	system("pause");
 }
