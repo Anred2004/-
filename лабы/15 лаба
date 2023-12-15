@@ -1,30 +1,28 @@
-#include <iostream>
+clude <iostream>
 #include <string>
 #include <vector>
 
 class Tree
 {
 public:
-	int value;
-	Tree* p;
-	Tree* l;
-	Tree* r;
+	int value; // значение узла 
+	Tree* p; // родительский узел
+	Tree* l; // левый потомок
+	Tree* r; // правый потомок
 	std::string string;
 	// constr
-	Tree(const int v, Tree* parent) {
+	Tree(const int v, Tree* parent)
+	{
 		value = v;
 		p = parent;
 	}
-
-	Tree() {
-
-	}
-
-	Tree(std::string str) {
+	Tree() {}
+	Tree(std::string str) 
+	{
 		string = str;
 	}
 
-	// Функция добавления
+	// Функция добавления нового узла в дерево
 	void add(const int v) {
 		if (v > value) {
 			if (r == nullptr) {
@@ -44,13 +42,13 @@ public:
 		}
 	}
 
-
 	// Функция перевода числа в строку
 	std::string toString(int value)
 	{
 		std::string result;
 
-		if (value > 9) {
+		if (value > 9) 
+		{
 			result += char(value / 10 + 48);
 			result += char(value % 10 + 48);
 		}
@@ -61,11 +59,11 @@ public:
 		return result;
 	}
 
-	// Преобразование дерева в линейно скобочную последовательность (для вывода)
+	// Преобразование дерева в линейно скобочную последовательность посредством рекурсии
 	void print(Tree* tree)
 	{
 		string += toString(tree->value);
-		if (tree->l != nullptr || tree->r != nullptr)
+		if (tree->l != nullptr || tree->r != nullptr) // проверяем имеет ли текущий узел поддеревья
 		{
 			string += '(';
 			if (tree->l != nullptr)
@@ -82,13 +80,12 @@ public:
 
 	}
 
-
 	void Print()
 	{
 		print(this);
 	}
 
-	// проверка на число
+	// проверяем является ли символ числом
 	bool isDigital(const char elem)
 	{
 		return (elem >= '0' && elem <= '9') ? true : false;
@@ -99,6 +96,7 @@ public:
 	{
 		Tree result;
 		int index;
+		
 		if (isDigital(str[0]) && isDigital(str[1]))
 		{
 			int val = (str[0] - 48) * 10 + str[1] - 48;
@@ -111,9 +109,7 @@ public:
 			result.value = val;
 			index = 1;
 		}
-
-
-		for (int i = index; i < str.size() - 1;)
+		for (int i = index; i < str.size() - 1;) // если символы являются числами добавляем в дерево 
 		{
 			if (isDigital(str[i]) && isDigital(str[i + 1]))
 			{
@@ -129,7 +125,7 @@ public:
 			}
 			else
 			{
-				i++;
+				i++; // если символ не число, переходим к следующему 
 			}
 		}
 
@@ -148,7 +144,7 @@ void Direct(std::vector <int>& v, const Tree* tree)
 	}
 }
 
-//кольцевой обход
+//центральный обход
 void Centeral(std::vector<int>& v, const Tree* tree)
 {
 	if (tree != nullptr)
@@ -159,7 +155,7 @@ void Centeral(std::vector<int>& v, const Tree* tree)
 	}
 }
 
-//обратный обход
+//концевой обход
 void Reverse(std::vector<int>& v, const Tree* tree)
 {
 	if (tree != nullptr)
@@ -177,7 +173,7 @@ void main()
 	std::vector <int> cV;
 	std::vector <int> rV;
 	int maxElem;
-	std::string str = "8(3(1,6(4,7)),10(,14(13,)))"; // линейно скобочная послед
+	std::string str = "8(3(1,6(4,7)),10(,14(13,)))"; // линейно скобочная последовательность
 	Tree tree;
 	tree = tree.parse(str);
 	Tree newTree = tree;
@@ -192,18 +188,15 @@ void main()
 		std::cout << value << "\t";
 	}
 	std::cout << std::endl;
-
-	// Выводим центральный обход
 	std::cout << "Central order:" << std::endl;
 	for (auto& value : cV) {
 		std::cout << value << "\t";
 	}
 	std::cout << std::endl;
-
-	// Выводим концевой обход
 	std::cout << "Reverse order:" << std::endl;
 	for (auto& value : rV) {
 		std::cout << value << "\t";
 	}
 	std::cout << std::endl;
+	system("pause");
 }
