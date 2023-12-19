@@ -1,9 +1,10 @@
-//внешня многофазная
+//внешняя многофазная
+#include <iostream>
 #include <fstream>
 
 int main()
 {
-    std::ifstream in, in1, in2;
+    std::ifstream in;
     std::ofstream out, out1, out2;
 
     int a, b, size = 0, countA, countB, count;
@@ -24,7 +25,7 @@ int main()
     после третьего – 8, после k -го шага – 2k*/
     for (int partSize = 1; partSize < size; partSize *= 2)
     {
-        //Исходный файл f разбивается на два вспомогательных файла 
+        //Исходный файл разбивается на два вспомогательных файла 
         in.open("result.txt");
         out1.open("A.txt");
         out2.open("B.txt");
@@ -45,6 +46,7 @@ int main()
         out1.close();
         out2.close();
 
+        std::ifstream in1, in2;
         in1.open("A.txt");
         in2.open("B.txt");
         out.open("result.txt");
@@ -64,6 +66,7 @@ int main()
         {
             countA = 0; countB = 0;
             while (countA < partSize && Afull && countB < partSize && Bfull)
+            {
                 if (a < b)
                 {
                     out << a << " ";
@@ -82,6 +85,7 @@ int main()
                         Bfull = false;
                     countB++;
                 }
+            }
             //Повторяя шаги, сливаем четверки в восьмерки и т.д.,
             //каждый раз удваивая длину слитых последовательностей до тех пор, пока не будет упорядочен целиком весь файл
             while (countA < partSize && Afull)
