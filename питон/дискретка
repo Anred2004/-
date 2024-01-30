@@ -1,7 +1,7 @@
 def combinations():
     word = "КОМБИНАТОРИКА"
     word = list(word) #разделяем слова на буквы
-    combination = set() #множество 7-буквенных слов(неповторяющихся)
+    combination = set() #создаем множество для хранения 7-буквенных слов(неповторяющихся)
     for i in range(len(word)):
         for j in range(len(word)):
             for k in range(len(word)):
@@ -9,9 +9,9 @@ def combinations():
                     for h in range(len(word)):
                         for l in range(len(word)):
                             for m in range(len(word)):
-                                if i==j or i==k or i==f or i==h or i==l or i==m or j==k or j==f or j==h or j==l or j==m or k==f or k==h or k==l or k==m or f==h or f==l or f==m or h==l or h==m or l==m:
-                                    continue # исключаем излишние повторения
-                                combination.add(word[i] + word[j] + word[k]+ word[f] + word[h]+ word[l] + word[m]) # состовляем слова из 7-ми букв перебором
+                                if i==j or i==k or i==f or i==h or i==l or i==m or j==k or j==f or j==h or j==l or j==m or k==f or k==h or k==l or k==m or f==h or f==l or f==m or h==l or h==m or l==m: #проверка на повторяющиеся буквы
+                                    continue # если таковы имеются, исключаем излишние повторения
+                                combination.add(word[i] + word[j] + word[k]+ word[f] + word[h]+ word[l] + word[m]) # добавляем уникальные слова
     print('слов без повторений' , len(combination))
 combinations()
 # всего 1025640 слов без повторений
