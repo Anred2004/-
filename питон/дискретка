@@ -14,3 +14,4 @@ def combinations():
                                 combination.add(word[i] + word[j] + word[k]+ word[f] + word[h]+ word[l] + word[m]) # состовляем слова из 7-ми букв перебором
     print('слов без повторений' , len(combination))
 combinations()
+# всего 1025640 слов без повторений
